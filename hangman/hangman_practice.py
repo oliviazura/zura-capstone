@@ -11,4 +11,3 @@ import numpy as np
 
 env = gym.make('ALE/Hangman-v5', render_mode = "rgb_array")
 play(env)
-
