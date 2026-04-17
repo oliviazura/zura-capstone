@@ -2,7 +2,7 @@ import gymnasium as gym
 env = gym.make("MountainCar-v0", render_mode="human")
 
 MAX_STEPS_PER_EPISODE = 200
-MAX_NUM_EPISODES = 5000
+MAX_NUM_EPISODES = 10
 
 for episode in range(MAX_NUM_EPISODES):
     terminated = False
