@@ -1,0 +1,33 @@
+import gymnasium as gym
+import numpy as np
+import constants as const
+
+def train(agent, env):
+    best_reward = -float('inf')
+    for episode in range(const.MAX_NUM_EPISODES):
+        done = False
+        obs = env.reset()
+        total_reward = 0.0
+        while not done:
+            action = agent.get_action(obs)
+            next_obs, reward, done, info = env.step(action)
+            agent.learn(obs, action, reward, next_obs)
+            obs = next_obs
+            total_reward += reward 
+        if total_reward > best_reward:
+            best_reward = total_reward
+        print("Episode#:{} reward:{} best_reward:{} eps:{}".format(episode,
+                                     total_reward, best_reward, agent.epsilon))
+    return np.argmax(agent.Q, axis =2)
+
+def test(agent, env, policy):
+    done = False
+    obs = env.reset()
+    total_reward = 0.0
+    while not done:
+        action = policy[agent.discretize(obs)]
+        next_obs, reward, done, info = env.step(action)
+        obs = next_obs
+        total_reward += reward
+    return total_reward
+        

@@ -1,29 +1,20 @@
 import gymnasium as gym
 import numpy as np
-
-MAX_NUM_EPISODES = 500
-STEPS_PER_EPISODE = 200
-
-EPSILON_MIN = 0.005
-max_num_steps = MAX_NUM_EPISODES * STEPS_PER_EPISODE
-EPSILON_DECAY = 500 * EPSILON_MIN / max_num_steps
-ALPHA = 0.05  # Learning rate
-GAMMA = 0.98  # Discount factor
-NUM_DISCRETE_BINS = 30  # Number of bins to Discretize each observation dim
+import constants as const
 
 class Q_learner(object):
     def __init__(self, env):
         self.obs_shape = env.observation_space.shape
         self.obs_high = env.observation_space.high
         self.obs_low = env.observation_space.low
-        self.obs_bins = NUM_DISCRETE_BINS
+        self.obs_bins = const.NUM_DISCRETE_BINS
         self. bin_width = (self.obs_high - self.obs_low) / self. obs_bins
         self.action_shape = env.action_space.n
 
         self.Q = np.zeros((self.obs_bins +1, self.obs_bins + 1,
                            self.action_shape))
-        self.alpha = ALPHA
-        self.gamma = GAMMA
+        self.alpha = const.ALPHA
+        self.gamma = const.GAMMA
         self.epsilon = 1.0
 
     def discretize(self, obs):
@@ -32,8 +23,8 @@ class Q_learner(object):
     def get_action(self, obs):
         discretized_obs = self.discretize(obs)
         #Epsilon Greedy action slection 
-        if self.epsilon > EPSILON_MIN:
-            self.epsilon -= EPSILON_DECAY
+        if self.epsilon > const.EPSILON_MIN:
+            self.epsilon -= const.EPSILON_DECAY
         if np.random().random() > self.epsilon:
             return np.argmax(self.Q[discretized_obs])
         else:
