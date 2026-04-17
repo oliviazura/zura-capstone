@@ -2,7 +2,7 @@ import gymnasium as gym
 import numpy as np
 import constants as const
 
-class Q_learner(object):
+class Q_Learner(object):
     def __init__(self, env):
         self.obs_shape = env.observation_space.shape
         self.obs_high = env.observation_space.high
