@@ -17,7 +17,7 @@ def train(agent, env):
             episode_done = terminated or truncated
         if total_reward > best_reward:
             best_reward = total_reward
-        print("Episode#:{} reward:{} best_reward:{} eps:{}".format(episode,
+        print("Episode#:{} reward:{} best_reward:{} epsilon:{}".format(episode,
                                      total_reward, best_reward, agent.epsilon))
     return np.argmax(agent.Q, axis =2)
 
