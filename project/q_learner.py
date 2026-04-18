@@ -8,7 +8,7 @@ class Q_Learner(object):
         self.obs_high = env.observation_space.high
         self.obs_low = env.observation_space.low
         self.obs_bins = const.NUM_DISCRETE_BINS
-        self. bin_width = (self.obs_high - self.obs_low) / self. obs_bins
+        self.bin_width = (self.obs_high - self.obs_low) / self. obs_bins
         self.action_shape = env.action_space.n
 
         self.Q = np.zeros((self.obs_bins +1, self.obs_bins + 1,
@@ -18,14 +18,16 @@ class Q_Learner(object):
         self.epsilon = 1.0
 
     def discretize(self, obs):
-        return tuple(((obs - self.obs_low) /self.bin_width.astype(int)))
+        bins = (((obs[0] - self.obs_low) / self.bin_width).astype(int))
+        clipped_bins = np.clip(bins, 0, self.obs_bins - 1)
+        return tuple(clipped_bins)
     
     def get_action(self, obs):
         discretized_obs = self.discretize(obs)
         #Epsilon Greedy action slection 
         if self.epsilon > const.EPSILON_MIN:
             self.epsilon -= const.EPSILON_DECAY
-        if np.random().random() > self.epsilon:
+        if np.random.random() > self.epsilon:
             return np.argmax(self.Q[discretized_obs])
         else:
             return np.random.choice([a for a in range(self.action_shape)])
