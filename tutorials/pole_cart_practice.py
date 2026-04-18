@@ -1,13 +1,21 @@
 """
-Code sourced from "https://gymnasium.farama.org/introduction/train_agent/"
+Code sourced from "https://gymnasium.farama.org/introduction/basic_usage/"
 Followed along with initial example of Cart Pole Environment
+Added video for export
 """
 
 import gymnasium as gym
+from gymnasium.wrappers import  RecordVideo
 
 #cart pole environment
-env = gym.make('CartPole-v1', render_mode="human")
+env = gym.make('CartPole-v1', render_mode="rgb_array")
 
+env = RecordVideo(
+    env,
+    video_folder = "tutorials",
+    name_prefix = "cartpole",
+    episode_trigger = lambda x: True
+)
 #restarts the environment to start a new "episode"
 observation, info = env.reset()
 #observation: what the agent can see
