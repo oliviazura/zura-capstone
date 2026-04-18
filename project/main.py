@@ -8,7 +8,7 @@ env = gym.make('MountainCar-v0', render_mode = "rgb_array")
 agent = Q_Learner(env)
 env = RecordVideo(
     env,
-    video_folder = "project",
+    video_folder = "project/videos",
     name_prefix = "mountaincar",
     episode_trigger = lambda x: x % const.TRAINING_PERIOD == 0
 )
