@@ -9,6 +9,6 @@ This textbook was closely followed along with for the Mountain Car implementatio
 Note that this textbook uses OpenAI Gym which is no longer maintained.
 The project aims to update the code to align with Gymansium conventions and is adapted for more specific needs.
 
-## gymnasium.farama.org
+### gymnasium.farama.org
 This website contains the necessary documentation for using Gymnasium. 
 It also includes tutorials that are followed along with for the Cart Pole and Blackjack agents in the "Tutorials" folder.
